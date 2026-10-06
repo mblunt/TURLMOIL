@@ -1,0 +1,56 @@
+FROM clojure:temurin-21-tools-deps-alpine
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/clojure/*.clj /parsers/clojure/
+
+RUN apk add --no-cache jq python3 py3-pip && \
+    chmod +x /parsers/extractor.sh && \
+    chmod +x /parsers/libs.sh
+
+# Build each parser into a standalone uberjar 
+# For every .clj source file:
+#   1. Create an isolated project dir at /build/<name>/
+#   2. Write deps.edn inline (library + version from parsers.json via extractor.sh)
+#   3. Write build.clj inline (same for all parsers)
+#   4. AOT-compile and produce a fat jar
+#   5. Promote the jar to /parsers/clojure/
+RUN for f in /parsers/clojure/*.clj; do \
+      name=$(basename "$f" .clj); \
+      lib=$(echo "$name" | cut -d'-' -f2-); \
+      id="clojure-$lib"; \
+      version=$(sh /parsers/extractor.sh "$id" version); \
+      library=$(sh /parsers/extractor.sh "$id" library); \
+      proj="/build/$name"; \
+      mkdir -p "$proj/src/parser"; \
+      cp "$f" "$proj/src/parser/core.clj"; \
+      \
+      printf '{:paths ["src"]\n :deps  {org.clojure/clojure  {:mvn/version "1.12.0"}\n         org.clojure/data.json {:mvn/version "2.4.0"}\n         %s {:mvn/version "%s"}}\n :aliases {:build {:deps {io.github.clojure/tools.build {:mvn/version "0.10.5"}} :ns-default build}}}\n' \
+        "$library" "$version" > "$proj/deps.edn"; \
+      \
+      printf '(ns build\n  (:require [clojure.tools.build.api :as b]))\n\n(def class-dir "target/classes")\n(def uber-file "target/parser.jar")\n(def basis (delay (b/create-basis {:project "deps.edn"})))\n\n(defn uber [_]\n  (b/delete {:path "target"})\n  (b/copy-dir {:src-dirs ["src"] :target-dir class-dir})\n  (b/compile-clj {:basis @basis :src-dirs ["src"] :class-dir class-dir})\n  (b/uber {:class-dir class-dir :uber-file uber-file :basis @basis :main (quote parser.core)}))\n' \
+        > "$proj/build.clj"; \
+      \
+      (cd "$proj" && clojure -T:build uber); \
+      cp "$proj/target/parser.jar" "/parsers/clojure/$name.jar"; \
+    done
+
+# Create extensionless wrappers the worker invokes 
+RUN for f in /parsers/clojure/*.clj; do \
+      name=$(basename "$f" .clj); \
+      printf '#!/bin/sh\nexec java -jar /parsers/clojure/%s.jar "$@"\n' "$name" \
+        > "/parsers/clojure/$name"; \
+      chmod +x "/parsers/clojure/$name"; \
+    done
+
+RUN /parsers/libs.sh clojure > /parsers/worker_parsers.json
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["python3", "worker.py"]

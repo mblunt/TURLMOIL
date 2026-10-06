@@ -1,0 +1,44 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0
+
+RUN apt-get update && apt-get install -y jq python3 python3-pip
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/csharp/*.cs /parsers/csharp/
+COPY parsers/csharp/*.csproj /parsers/csharp/
+
+RUN chmod +x /parsers/extractor.sh && \
+    chmod +x /parsers/libs.sh
+
+# Build each parser as a self-contained dotnet publish binary.
+# Each parser has a static .csproj alongside it with its NuGet dependencies.
+RUN for f in /parsers/csharp/*.cs; do \
+      name=$(basename "$f" .cs); \
+      proj="/parsers/csharp/projects/$name"; \
+      mkdir -p "$proj"; \
+      cp "$f" "$proj/Program.cs"; \
+      cp "/parsers/csharp/$name.csproj" "$proj/$name.csproj"; \
+      dotnet restore "$proj/$name.csproj"; \
+      dotnet list "$proj/$name.csproj" package; \
+      dotnet publish "$proj/$name.csproj" -c Release -r linux-x64 --self-contained -o "$proj/out"; \
+	done
+
+# Create shell wrappers pointing at the published binaries
+RUN for f in /parsers/csharp/*.cs; do \
+      name=$(basename "$f" .cs); \
+      printf '#!/bin/sh\nexec "/parsers/csharp/projects/%s/out/%s" "$@"\n' "$name" "$name" \
+        > "/parsers/csharp/$name"; \
+      chmod +x "/parsers/csharp/$name"; \
+    done
+
+RUN /parsers/libs.sh csharp > /parsers/worker_parsers.json
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["python3", "worker.py"]

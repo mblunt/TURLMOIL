@@ -1,0 +1,46 @@
+#!/bin/bash
+
+url="$1"
+
+if [ -z "$url" ]; then
+  printf '{"error":"No URL provided"}\n'
+  exit 1
+fi
+
+get() {
+  trurl --url "$url" --get "$1" 2>/dev/null || true
+}
+
+scheme=$(get '{scheme}')
+username=$(get '{user}')
+password=$(get '{password}')
+host=$(get '{host}')
+port=$(get '{port}')
+path=$(get '{path}')
+query=$(get '{query}')
+fragment=$(get '{fragment}')
+
+jq -n \
+  --arg scheme   "$scheme" \
+  --arg username "$username" \
+  --arg password "$password" \
+  --arg host     "$host" \
+  --arg port     "$port" \
+  --arg path     "$path" \
+  --arg query    "$query" \
+  --arg fragment "$fragment" \
+  --arg raw_url  "$url" \
+  '{
+    scheme:     (if $scheme     != "" then $scheme     else null end),
+    authority:  "EXCLUDE",
+    userinfo:   "EXCLUDE",
+    username:   (if $username   != "" then $username   else null end),
+    password:   (if $password   != "" then $password   else null end),
+    host:       (if $host       != "" then $host       else null end),
+    port:       (if $port       != "" then $port       else null end),
+    path:       (if $path       != "" then $path       else null end),
+    query:      (if $query      != "" then $query      else null end),
+    query_dict: "EXCLUDE",
+    fragment:   (if $fragment   != "" then $fragment   else null end),
+    raw_url:    $raw_url
+  }'

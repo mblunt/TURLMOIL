@@ -1,0 +1,22 @@
+{
+  "port-parsing-error": {
+    "name": "Port parsing error",
+    "description": "One parser fails to correctly extract port, returning malformed or corrupted data",
+    "count": 25
+  },
+  "port-dot-vs-numeric": {
+    "name": "Port dot vs numeric representation",
+    "description": "One parser returns dot (.) for missing/invalid port while the other returns a numeric value",
+    "count": 2
+  },
+  "leading-zero-octal": {
+    "name": "Leading zero port parsing (octal vs decimal)",
+    "description": "Ada interprets leading-zero ports as octal while Python converts to decimal",
+    "count": 50
+  },
+  "port-corruption-arithmetic": {
+    "name": "Port corruption or arithmetic difference",
+    "description": "Port values differ by arithmetic operations or truncation, suggesting extraction error or modulo/overflow handling differences.",
+    "count": 33
+  }
+}

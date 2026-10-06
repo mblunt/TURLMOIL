@@ -1,0 +1,50 @@
+FROM ubuntu:24.04
+
+WORKDIR /parsers/bin
+
+RUN apt-get update && apt-get install -y \
+    jq python3 python3-pip \
+    trurl curl \
+    autoconf automake build-essential ca-certificates git \
+    libgcrypt20-dev libgpg-error-dev libssh2-1-dev libssl-dev libtool \
+    pkg-config zlib1g-dev autopoint \
+    wget2-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/bin/* /parsers/bin/
+
+RUN chmod +x /parsers/extractor.sh && \
+    chmod +x /parsers/libs.sh && \
+    chmod +x /parsers/bin/1-trurl
+
+# Build the aria2 internal URL parser from source.
+# 2-aria2.cc replaces aria2's own entry point and is compiled as part of the
+# aria2 build so it has access to internal headers (uri.h, uri_split.h, util.h).
+RUN git clone --depth 1 --branch release-1.37.0 https://github.com/aria2/aria2.git /tmp/aria2src && \
+    cp /parsers/bin/2-aria2.cc /tmp/aria2src/src/main.cc && \
+    cd /tmp/aria2src && \
+    autoreconf -i && \
+    ./configure --prefix=/parsers/ --enable-static && \
+    make -j$(nproc) && \
+    make install && \
+    cp /parsers/bin/aria2c /parsers/bin/2-aria2 && \
+    chmod +x /parsers/bin/2-aria2 && \
+    rm -rf /tmp/aria2src
+
+# Build the wget URL parser
+RUN gcc -O2 /parsers/bin/3-wget.c -o /parsers/bin/3-wget $(pkg-config --cflags --libs libwget) && \
+    chmod +x /parsers/bin/3-wget
+
+RUN /parsers/libs.sh bin > /parsers/worker_parsers.json
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["python3", "worker.py"]

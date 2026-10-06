@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+import sys
+import json
+from hyperlink import parse
+
+
+#  1. scheme
+#  2. authority
+#     2a. userinfo
+#         2aa. username
+#         2ab. password
+#     2b. host
+#     2c. port
+# 3. path
+# 4. query
+#     4a. query_dict
+# 5. fragment
+
+def parse_url(url: str) -> dict:
+    """Parse a URL and return components as a dictionary."""
+    try:
+        parsed = parse(url)
+        
+        result = {
+            "scheme": parsed.scheme or None,
+            "authority": "EXCLUDE",
+            "userinfo": ":".join(parsed.userinfo) if parsed.userinfo else None,
+            "username": parsed.userinfo[0] if len(parsed.userinfo) > 0 else None,
+            "password": parsed.userinfo[1] if len(parsed.userinfo) > 1 else None,
+            "host": parsed.host or None,
+            "port": str(parsed.port) if parsed.port is not None else None,
+            "path": parsed.path or None,
+            "query": "EXCLUDE",
+            "query_dict": dict(parsed.query),
+            "fragment": parsed.fragment or None,
+            "raw_url": url,
+        }
+        
+        return result
+        
+    except Exception as e:
+        return {
+            "error": str(e),
+            "raw_url": url,
+        }
+
+
+def main():
+    if len(sys.argv) < 2:
+        print(json.dumps({"error": "No URL provided"}))
+        sys.exit(1)
+    
+    url = sys.argv[1]
+    result = parse_url(url)
+    print(json.dumps(result))
+
+
+if __name__ == "__main__":
+    main()

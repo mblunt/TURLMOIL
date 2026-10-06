@@ -1,0 +1,17 @@
+{
+  "query-percent-encoding": {
+    "name": "Query percent-encoding",
+    "description": "One parser percent-encodes query while other uses raw unicode or different encoding",
+    "count": 50
+  },
+  "query-parsing-error": {
+    "name": "Query parsing error",
+    "description": "One parser fails to parse query correctly or returns empty/corrupted content while other returns normalized query",
+    "count": 6
+  },
+  "query-unicode-handling": {
+    "name": "Query unicode handling",
+    "description": "Whatwg percent-encodes unicode; legacy preserves or mangles it.",
+    "count": 16
+  }
+}

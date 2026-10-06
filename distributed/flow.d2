@@ -1,0 +1,29 @@
+orchestrator: {
+    run
+    run_iteration
+
+    run -> run_iteration
+}
+
+generate: {
+    generate_batch
+    generate_n
+    _generate_with_choices
+
+    generate_batch -> generate_n: num_urls
+    generate_n -> _generate_with_choices: weights
+    _generate_with_choices -> generate_n: urls, choices
+    generate_n -> generate_batch: "List[urls]"
+
+}
+
+database
+celery
+
+worker: {
+    
+}
+
+orchestrator.run_iteration -> generate.generate_batch: num_urls
+database -> generate.generate_n: weights
+generate.generate_n -> celery: ParseJobs

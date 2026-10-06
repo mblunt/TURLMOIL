@@ -1,0 +1,42 @@
+{
+  "dot-segment-resolution": {
+    "name": "Dot Segment Resolution",
+    "description": "Some parsers resolve `.` and `..` path segments (WHATWG-style), while others leave them as literal path segments.",
+    "count": 35
+  },
+  "percent-encoding": {
+    "name": "Percent Encoding",
+    "description": "Parsers differ on whether path characters are percent-encoded or left as raw Unicode/bytes, or whether existing percent-encoded sequences are decoded.",
+    "count": 32
+  },
+  "backslash-normalisation": {
+    "name": "Backslash Normalisation",
+    "description": "WHATWG-compliant parsers convert `\\` to `/` in the path; others preserve the backslash literally.",
+    "count": 17
+  },
+  "surrogate-pair-encoding": {
+    "name": "Surrogate Pair Encoding",
+    "description": "Some parsers encode supplementary Unicode characters as UTF-16 surrogate pairs (%ED%A\u2026%ED%B\u2026), while others encode them as proper UTF-8 sequences (%F0\u2026).",
+    "count": 5
+  },
+  "whitespace-handling": {
+    "name": "Whitespace Handling",
+    "description": "Parsers differ on whether whitespace characters (tabs, newlines, spaces, control chars) in the path are stripped, percent-encoded, or left raw.",
+    "count": 25
+  },
+  "double-slash-collapse": {
+    "name": "Double Slash Collapse",
+    "description": "Some parsers collapse consecutive `//` or multiple slashes in the path while others preserve them, especially for file:// and other special schemes.",
+    "count": 7
+  },
+  "percent-encoding-normalization": {
+    "name": "Percent Encoding Normalization",
+    "description": "Parsers differ on whether percent-encoded sequences in paths are normalized (e.g. double-encoded %25XX decoded to %XX, or uppercase/lowercase), vs left as-is.",
+    "count": 9
+  },
+  "query-or-fragment-bleed": {
+    "name": "Query or Fragment Bleed",
+    "description": "Part of the query string or fragment is captured in the path by some parsers, while others correctly stop the path at `?` or `#`.",
+    "count": 6
+  }
+}

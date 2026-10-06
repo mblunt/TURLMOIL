@@ -1,0 +1,92 @@
+Interesting note in `ada_c.cpp`
+```cpp
+struct ada_url_components {
+  /*
+   * By using 32-bit integers, we implicitly assume that the URL string
+   * cannot exceed 4 GB.
+   *
+   * https://user:pass@example.com:1234/foo/bar?baz#quux
+   *       |     |    |          | ^^^^|       |   |
+   *       |     |    |          | |   |       |   `----- hash_start
+   *       |     |    |          | |   |       `--------- search_start
+   *       |     |    |          | |   `----------------- pathname_start
+   *       |     |    |          | `--------------------- port
+   *       |     |    |          `----------------------- host_end
+   *       |     |    `---------------------------------- host_start
+   *       |     `--------------------------------------- username_end
+   *       `--------------------------------------------- protocol_end
+   */
+```
+
+
+Components of a URL:
+
+https://username:password@subdomain.hostname.tld:port/path?query_key=query_value&query#fragment
+ 1. scheme
+ 2. authority
+    2a. userinfo
+        2aa. username
+        2ab. password
+    2b. host
+    2c. port
+3. path
+4. query
+    4a. query_dict
+5. fragment
+
+
+Python
+ 1) urllib.parse
+ 2) yarl
+ 3) furl
+ 4) purl
+ 5) httpx
+
+JavaScript/TypeScript
+ 1) URL (WHATWG standard, global)
+ 2) url (legacy Node.js)
+ 3) Deno.URL
+
+C/C++
+ 1) Boost.URL
+ 2) ADA
+ 3) Poco::URI
+ 4) libcurl
+ 5) http-parser
+
+Java
+ 1) OkHttp (HTTPURL)
+ 2) Apache HttpClient (URIBuilder)
+ 3) java.net.URI
+
+Ruby
+ 1) uri
+ 2) addressable
+
+Rust
+ 1) url (standard library)
+ 2) hyper::URI
+ 3) reqwest 
+
+Go
+ 1) net/url
+
+Perl
+ 1) URI
+
+PHP
+ 1) parse_url() (BuiltIn)
+ 1) purl
+ 1) Laminas
+
+C#:
+ 1) System.Uri
+ 2) Flurl
+
+Swift
+ 1) URL
+ 2) URLComponents
+ 3) WebURL
+
+Elixir
+ 1) URI

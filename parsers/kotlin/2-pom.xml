@@ -1,0 +1,18 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tmp</groupId>
+  <artifactId>tmp</artifactId>
+  <version>1</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.eygraber</groupId>
+      <artifactId>uri-kmp-jvm</artifactId>
+      <version>0.0.21</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,21 @@
+FROM python:3.14-slim
+
+WORKDIR /app
+
+COPY distributed/requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY distributed/core/ core
+COPY distributed/registry/ registry
+COPY distributed/tasks/ tasks
+
+ENV REDIS_HOST=redis \
+    REDIS_PORT=6379 \
+    PYTHONUNBUFFERED=1 \
+    CELERY_CONCURRENCY=4
+
+CMD celery -A tasks.celery_app.app worker \
+    --queues=differentials \
+    --concurrency=${CELERY_CONCURRENCY} \
+    --loglevel=INFO \
+    --hostname=analysis@%h

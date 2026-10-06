@@ -1,0 +1,22 @@
+{
+  "fragment-unicode-stripping": {
+    "name": "Fragment unicode stripping",
+    "description": "One parser strips or corrupts raw unicode in fragment while the other preserves or percent-encodes it",
+    "count": 15
+  },
+  "fragment-percent-encoding": {
+    "name": "Fragment percent-encoding",
+    "description": "One parser percent-encodes fragment while other uses raw unicode or different encoding",
+    "count": 50
+  },
+  "multiple-hash-handling": {
+    "name": "Multiple hash handling",
+    "description": "One parser uses first # as fragment boundary, other uses last # in the URL",
+    "count": 13
+  },
+  "fragment-leading-hash": {
+    "name": "Fragment leading hash inclusion",
+    "description": "One parser includes the leading # in the fragment, the other strips it",
+    "count": 5
+  }
+}

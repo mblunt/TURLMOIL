@@ -1,0 +1,35 @@
+FROM crystallang/crystal:latest-alpine AS builder
+
+RUN apk add --no-cache jq
+
+WORKDIR /build
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/crystal/*.cr /parsers/crystal/
+
+RUN chmod +x /parsers/extractor.sh /parsers/libs.sh
+
+RUN crystal build /parsers/crystal/1-uri.cr --release --static -o /parsers/crystal/1-uri
+
+RUN /parsers/libs.sh crystal > /parsers/worker_parsers.json
+
+
+FROM alpine:latest
+
+RUN apk add --no-cache python3 py3-pip jq
+
+COPY --from=builder /parsers/crystal/ /parsers/crystal/
+COPY --from=builder /parsers/worker_parsers.json /parsers/
+COPY --from=builder /parsers/extractor.sh /parsers/
+COPY --from=builder /parsers/libs.sh /parsers/
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["python3", "worker.py"]

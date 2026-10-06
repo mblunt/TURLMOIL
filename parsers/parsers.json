@@ -1,0 +1,726 @@
+{
+  "parsers": [
+    {
+      "id": "python-urllib3",
+      "language": "python",
+      "library": "urllib.parse",
+      "version": "3.14.3",
+      "command": "/parsers/python/1-urllib3"
+    },
+    {
+      "id": "python-yarl",
+      "language": "python",
+      "library": "yarl",
+      "version": "1.23.0",
+      "command": "/parsers/python/2-yarl"
+    },
+    {
+      "id": "python-furl",
+      "language": "python",
+      "library": "furl",
+      "version": "2.1.4",
+      "command": "/parsers/python/3-furl"
+    },
+    {
+      "id": "python-httpx",
+      "language": "python",
+      "library": "httpx",
+      "version": "0.28.1",
+      "command": "/parsers/python/4-httpx"
+    },
+    {
+      "id": "python-rfc3986",
+      "language": "python",
+      "library": "rfc3986",
+      "version": "2.0.0",
+      "command": "/parsers/python/5-rfc3986"
+    },
+    {
+      "id": "python-uritools",
+      "language": "python",
+      "library": "uritools",
+      "version": "6.0.1",
+      "command": "/parsers/python/6-uritools"
+    },
+    {
+      "id": "python-ada-url",
+      "language": "python",
+      "library": "ada-url",
+      "version": "1.31.0",
+      "command": "/parsers/python/7-ada-url"
+    },
+    {
+      "id": "python-lazr-uri",
+      "language": "python",
+      "library": "lazr.uri",
+      "version": "1.0.7",
+      "command": "/parsers/python/8-lazr-uri"
+    },
+    {
+      "id": "python-hyperlink",
+      "language": "python",
+      "library": "hyperlink",
+      "version": "21.0.0",
+      "command": "/parsers/python/9-hyperlink"
+    },
+    {
+      "id": "python-mdurl",
+      "language": "python",
+      "library": "mdurl",
+      "version": "0.1.2",
+      "command": "/parsers/python/10-mdurl"
+    },
+    {
+      "id": "python-purl",
+      "language": "python",
+      "library": "purl",
+      "version": "1.6",
+      "command": "/parsers/python/11-purl"
+    },
+    {
+      "id": "php-parseurl",
+      "language": "php",
+      "library": "php/parseurl",
+      "version": "8.4.19",
+      "command": "/parsers/php/1-parse-url"
+    },
+    {
+      "id": "php-spatie",
+      "language": "php",
+      "library": "spatie/url",
+      "version": "2.4.0",
+      "command": "/parsers/php/2-spatie"
+    },
+    {
+      "id": "php-laminas",
+      "language": "php",
+      "library": "laminas/laminas-uri",
+      "version": "2.14.0",
+      "command": "/parsers/php/3-laminas"
+    },
+    {
+      "id": "php-league",
+      "language": "php",
+      "library": "league/uri",
+      "version": "7.8.1",
+      "command": "/parsers/php/4-league"
+    },
+    {
+      "id": "php-sabre",
+      "language": "php",
+      "library": "sabre/uri",
+      "version": "3.0.2",
+      "command": "/parsers/php/5-sabre"
+    },
+    {
+      "id": "php-opis-uri",
+      "language": "php",
+      "library": "opis/uri",
+      "version": "1.1.0",
+      "command": "/parsers/php/6-opis-uri"
+    },
+    {
+      "id": "php-guzzle-psr7",
+      "language": "php",
+      "library": "guzzlehttp/psr7",
+      "version": "2.9.0",
+      "command": "/parsers/php/7-guzzle-psr7"
+    },
+    {
+      "id": "php-pear-net-url2",
+      "language": "php",
+      "library": "pear/net_url2",
+      "version": "2.2.3",
+      "command": "/parsers/php/8-pear-net-url2"
+    },
+    {
+      "id": "php-ml-iri",
+      "language": "php",
+      "library": "ml/iri",
+      "version": "1.1.4",
+      "command": "/parsers/php/9-ml-iri"
+    },
+    {
+      "id": "php-phrity-net-uri",
+      "language": "php",
+      "library": "phrity/net-uri",
+      "version": "2.2.1",
+      "command": "/parsers/php/10-phrity-net-uri"
+    },
+    {
+      "id": "php-amphp-uri",
+      "language": "php",
+      "library": "amphp/uri",
+      "version": "0.1.4",
+      "command": "/parsers/php/11-amphp-uri"
+    },
+    {
+      "id": "php-nette-http",
+      "language": "php",
+      "library": "nette/http",
+      "version": "3.3.3",
+      "command": "/parsers/php/12-nette-http"
+    },
+    {
+      "id": "perl-uri",
+      "language": "perl",
+      "library": "OALDERS/URI",
+      "version": "5.34",
+      "command": "/parsers/perl/1-uri"
+    },
+    {
+      "id": "perl-mojo-url",
+      "language": "perl",
+      "library": "SRI/Mojolicious",
+      "version": "9.42",
+      "command": "/parsers/perl/2-mojo-url"
+    },
+    {
+      "id": "javascript-whatwg",
+      "language": "javascript",
+      "library": "whatwg",
+      "version": "25.8.2",
+      "command": "/parsers/javascript/1-whatwg"
+    },
+    {
+      "id": "javascript-legacy",
+      "language": "javascript",
+      "library": "legacy",
+      "version": "25.8.2",
+      "command": "/parsers/javascript/2-legacy"
+    },
+    {
+      "id": "javascript-deno",
+      "language": "javascript",
+      "library": "deno",
+      "version": "2.7.8",
+      "command": "/parsers/javascript/3-deno"
+    },
+    {
+      "id": "javascript-parse-uri",
+      "language": "javascript",
+      "library": "parse-uri",
+      "version": "2.0.5",
+      "command": "/parsers/javascript/4-parse-uri"
+    },
+    {
+      "id": "javascript-smithy",
+      "language": "javascript",
+      "library": "@smithy/url-parser",
+      "version": "4.2.12",
+      "command": "/parsers/javascript/5-smithy"
+    },
+    {
+      "id": "javascript-uri-js",
+      "language": "javascript",
+      "library": "uri-js",
+      "version": "4.4.1",
+      "command": "/parsers/javascript/6-uri-js"
+    },
+    {
+      "id": "javascript-url-parse",
+      "language": "javascript",
+      "library": "url-parse",
+      "version": "1.5.10",
+      "command": "/parsers/javascript/7-url-parse"
+    },
+    {
+      "id": "javascript-urijs",
+      "language": "javascript",
+      "library": "urijs",
+      "version": "1.19.11",
+      "command": "/parsers/javascript/8-urijs"
+    },
+    {
+      "id": "javascript-fast-url-parser",
+      "language": "javascript",
+      "library": "fast-url-parser",
+      "version": "1.1.3",
+      "command": "/parsers/javascript/9-fast-url-parser"
+    },
+    {
+      "id": "javascript-fast-uri",
+      "language": "javascript",
+      "library": "fast-uri",
+      "version": "3.1.0",
+      "command": "/parsers/javascript/10-fast-uri"
+    },
+    {
+      "id": "javascript-parse-url",
+      "language": "javascript",
+      "library": "parse-url",
+      "version": "11.1.0",
+      "command": "/parsers/javascript/11-parse-url"
+    },
+    {
+      "id": "javascript-parseuri",
+      "language": "javascript",
+      "library": "parseuri",
+      "version": "3.0.2",
+      "command": "/parsers/javascript/12-parseuri"
+    },
+    {
+      "id": "javascript-url-toolkit",
+      "language": "javascript",
+      "library": "url-toolkit",
+      "version": "2.2.5",
+      "command": "/parsers/javascript/13-url-toolkit"
+    },
+    {
+      "id": "javascript-jsuri",
+      "language": "javascript",
+      "library": "jsuri",
+      "version": "1.3.1",
+      "command": "/parsers/javascript/14-jsuri"
+    },
+    {
+      "id": "javascript-domurl",
+      "language": "javascript",
+      "library": "domurl",
+      "version": "2.3.4",
+      "command": "/parsers/javascript/15-domurl"
+    },
+    {
+      "id": "javascript-uri-parser",
+      "language": "javascript",
+      "library": "uri-parser",
+      "version": "1.0.1",
+      "command": "/parsers/javascript/16-uri-parser"
+    },
+    {
+      "id": "java-okhttp",
+      "language": "java",
+      "library": "OkHttp",
+      "version": "4.9.3",
+      "command": "/parsers/java/1-okhttp"
+    },
+    {
+      "id": "java-apache-httpclient",
+      "language": "java",
+      "library": "Apache HttpClient",
+      "version": "4.5.13",
+      "command": "/parsers/java/2-apache-httpclient"
+    },
+    {
+      "id": "java-uri",
+      "language": "java",
+      "library": "java.net.URI",
+      "version": "17",
+      "command": "/parsers/java/3-java-net-uri"
+    },
+    {
+      "id": "java-url",
+      "language": "java",
+      "library": "java.net.URL",
+      "version": "17",
+      "command": "/parsers/java/4-java-net-url"
+    },
+    {
+      "id": "java-spring-web",
+      "language": "java",
+      "library": "Spring Web",
+      "version": "7.0.6",
+      "command": "/parsers/java/5-spring-web"
+    },
+    {
+      "id": "java-galimatias",
+      "language": "java",
+      "library": "galimatias",
+      "version": "0.2.1",
+      "command": "/parsers/java/6-galimatias"
+    },
+    {
+      "id": "java-netty",
+      "language": "java",
+      "library": "Netty",
+      "version": "4.1.132.Final",
+      "command": "/parsers/java/7-netty"
+    },
+    {
+      "id": "go-net",
+      "language": "go",
+      "library": "net/url",
+      "version": "1.21",
+      "command": "/parsers/go/1-net-url"
+    },
+    {
+      "id": "elixir-uri",
+      "language": "elixir",
+      "library": "URI",
+      "version": "1.15",
+      "command": "/parsers/elixir/1-uri"
+    },
+    {
+      "id": "elixir-ex_url",
+      "language": "elixir",
+      "library": "ex_url",
+      "version": "2.0.2",
+      "command": "/parsers/elixir/2-ex_url"
+    },
+    {
+      "id": "csharp-systemuri",
+      "language": "csharp",
+      "library": "System.Uri",
+      "version": ".NET 10.0",
+      "command": "/parsers/csharp/1-system-uri"
+    },
+    {
+      "id": "csharp-flurl",
+      "language": "csharp",
+      "library": "Flurl",
+      "version": "4.0.0",
+      "command": "/parsers/csharp/2-flurl"
+    },
+    {
+      "id": "csharp-anglesharp",
+      "language": "csharp",
+      "library": "AngleSharp",
+      "version": "1.4.0",
+      "command": "/parsers/csharp/3-anglesharp"
+    },
+    {
+      "id": "ruby-uri",
+      "language": "ruby",
+      "library": "uri",
+      "version": "1.1.1",
+      "command": "/parsers/ruby/1-uri"
+    },
+    {
+      "id": "ruby-addressable",
+      "language": "ruby",
+      "library": "addressable",
+      "version": "2.8.9",
+      "command": "/parsers/ruby/2-addressable"
+    },
+    {
+      "id": "rust-url",
+      "language": "rust",
+      "library": "url",
+      "version": "2.5.8",
+      "command": "/parsers/rust/1-url"
+    },
+    {
+      "id": "rust-hyper-uri",
+      "language": "rust",
+      "library": "hyper",
+      "version": "1.8.1",
+      "command": "/parsers/rust/2-hyper-uri"
+    },
+    {
+      "id": "rust-reqwest",
+      "language": "rust",
+      "library": "reqwest",
+      "version": "0.13.2",
+      "command": "/parsers/rust/3-reqwest"
+    },
+    {
+      "id": "rust-fluent-uri",
+      "language": "rust",
+      "library": "fluent-uri",
+      "version": "0.4.1",
+      "command": "/parsers/rust/4-fluent-uri"
+    },
+    {
+      "id": "rust-uriparse",
+      "language": "rust",
+      "library": "uriparse",
+      "version": "0.6.4",
+      "command": "/parsers/rust/5-uriparse"
+    },
+    {
+      "id": "rust-iref",
+      "language": "rust",
+      "library": "iref",
+      "version": "4.0.0",
+      "command": "/parsers/rust/6-iref"
+    },
+    {
+      "id": "rust-urlparse",
+      "language": "rust",
+      "library": "urlparse",
+      "version": "0.7.3",
+      "command": "/parsers/rust/7-urlparse"
+    },
+    {
+      "id": "swift-url",
+      "language": "swift",
+      "library": "Foundation.URL",
+      "version": "5.9",
+      "command": "/parsers/swift/1-url"
+    },
+    {
+      "id": "swift-urlcomponents",
+      "language": "swift",
+      "library": "URLComponents",
+      "version": "5.9",
+      "command": "/parsers/swift/2-urlcomponents"
+    },
+    {
+      "id": "swift-weburl",
+      "language": "swift",
+      "library": "WebURL (swift-url)",
+      "version": "0.4.2",
+      "command": "/parsers/swift/3-weburl"
+    },
+    {
+      "id": "cpp-boost-url",
+      "language": "cpp",
+      "library": "Boost.URL",
+      "version": "latest",
+      "command": "/parsers/cpp/1-boost-url"
+    },
+    {
+      "id": "cpp-ada-url",
+      "language": "cpp",
+      "library": "Ada URL",
+      "version": "3.4.4",
+      "command": "/parsers/cpp/2-ada-url"
+    },
+    {
+      "id": "cpp-poco-uri",
+      "language": "cpp",
+      "library": "Poco::URI",
+      "version": "1.15.2",
+      "command": "/parsers/cpp/3-poco-uri"
+    },
+    {
+      "id": "cpp-libcurl",
+      "language": "cpp",
+      "library": "libcurl (CURLU)",
+      "version": "8.19.0",
+      "command": "/parsers/cpp/4-libcurl"
+    },
+    {
+      "id": "cpp-http-parser",
+      "language": "cpp",
+      "library": "http_parser",
+      "version": "2.9.4",
+      "command": "/parsers/cpp/5-http-parser"
+    },
+    {
+      "id": "cpp-uriparser",
+      "language": "cpp",
+      "library": "uriparser",
+      "version": "1.0.0",
+      "command": "/parsers/cpp/6-uriparser"
+    },
+    {
+      "id": "cpp-url-c-rfc",
+      "language": "cpp",
+      "library": "url.c (RFC 3986)",
+      "version": "6e87cbce27cf617b1416c876cd8293a7910603c0",
+      "command": "/parsers/cpp/7-url-c-rfc"
+    },
+    {
+      "id": "cpp-url-c-whatwg",
+      "language": "cpp",
+      "library": "url.c (WHATWG)",
+      "version": "6e87cbce27cf617b1416c876cd8293a7910603c0",
+      "command": "/parsers/cpp/8-url-c-whatwg"
+    },
+    {
+      "id": "cpp-qurl-tolerant",
+      "language": "cpp",
+      "library": "QUrl (TolerantMode)",
+      "version": "6.11.0",
+      "command": "/parsers/cpp/9-qurl-tolerant"
+    },
+    {
+      "id": "cpp-qurl-strict",
+      "language": "cpp",
+      "library": "QUrl (StrictMode)",
+      "version": "6.11.0",
+      "command": "/parsers/cpp/10-qurl-strict"
+    },
+    {
+      "id": "cpp-guri",
+      "language": "cpp",
+      "library": "GLib GUri",
+      "version": "latest",
+      "command": "/parsers/cpp/11-guri"
+    },
+    {
+      "id": "haskell-network-uri",
+      "language": "haskell",
+      "library": "network-uri",
+      "version": "2.6.4.2",
+      "command": "/parsers/haskell/1-network-uri",
+      "extra_deps": "aeson, bytestring, text"
+    },
+    {
+      "id": "haskell-uri-bytestring",
+      "language": "haskell",
+      "library": "uri-bytestring",
+      "version": "0.4.0.1",
+      "command": "/parsers/haskell/2-uri-bytestring",
+      "extra_deps": "aeson, bytestring, text"
+    },
+    {
+      "id": "haskell-modern-uri",
+      "language": "haskell",
+      "library": "modern-uri",
+      "version": "0.3.6.1",
+      "command": "/parsers/haskell/3-modern-uri",
+      "extra_deps": "aeson, bytestring, text"
+    },
+    {
+      "id": "haskell-http-client",
+      "language": "haskell",
+      "library": "http-client",
+      "version": "0.7.19",
+      "command": "/parsers/haskell/5-http-client",
+      "extra_deps": "aeson, bytestring, text, http-types"
+    },
+    {
+      "id": "haskell-http-conduit",
+      "language": "haskell",
+      "library": "http-conduit",
+      "version": "2.3.9.1",
+      "command": "/parsers/haskell/4-http-conduit",
+      "extra_deps": "aeson, bytestring, text, http-client, http-types"
+    },
+    {
+      "id": "erlang-uri-string",
+      "language": "erlang",
+      "library": "uri_string",
+      "version": "27.0",
+      "signals": [
+        "stdlib",
+        "otp",
+        "baseline"
+      ],
+      "selection_reason": "Erlang/OTP standard-library URL parser baseline (widely deployed; no external deps).",
+      "command": "/parsers/erlang/1-uri-string"
+    },
+    {
+      "id": "erlang-hackney-url",
+      "language": "erlang",
+      "library": "hackney_url",
+      "version": "4.0.0",
+      "signals": [
+        "hex_package",
+        "popular_http_client",
+        "separate_parser_implementation"
+      ],
+      "selection_reason": "Hackney is a widely used HTTP client and provides its own URL parser (good diversity vs OTP stdlib).",
+      "command": "/parsers/erlang/2-hackney-url"
+    },
+    {
+      "id": "erlang-ibrowse-lib",
+      "language": "erlang",
+      "library": "ibrowse_lib",
+      "version": "4.4.2",
+      "signals": [
+        "hex_package",
+        "legacy_http_client",
+        "different_url_parser",
+        "ipv6_literals"
+      ],
+      "selection_reason": "ibrowse is an older, still-used Erlang HTTP client with a distinct URL parser (useful for historical/compat differentials).",
+      "command": "/parsers/erlang/3-ibrowse-lib"
+    },
+    {
+      "id": "zig-std-uri",
+      "language": "zig",
+      "library": "std.Uri",
+      "version": "0.14.0",
+      "command": "/parsers/zig/1-std-uri"
+    },
+    {
+      "id": "dart-core",
+      "language": "dart",
+      "library": "dart:core Uri",
+      "version": "3.11.5",
+      "command": "/parsers/dart/1-dart-core"
+    },
+    {
+      "id": "r-httr2",
+      "language": "r",
+      "library": "httr2",
+      "version": "1.1.2",
+      "command": "/parsers/r/1-httr2"
+    },
+    {
+      "id": "r-urlparse",
+      "language": "r",
+      "library": "urlparse",
+      "version": "0.2.1",
+      "command": "/parsers/r/2-urlparse"
+    },
+    {
+      "id": "r-urltools",
+      "language": "r",
+      "library": "urltools",
+      "version": "1.7.3",
+      "command": "/parsers/r/3-urltools"
+    },
+    {
+      "id": "ada-uri-mime",
+      "language": "ada",
+      "library": "uri_mime",
+      "version": "1.4.0",
+      "command": "/parsers/ada/1-uri-mime"
+    },
+    {
+      "id": "bin-trurl",
+      "language": "bin",
+      "library": "trurl",
+      "version": "0.14.0",
+      "command": "/parsers/bin/1-trurl"
+    },
+    {
+      "id": "bin-aria2",
+      "language": "bin",
+      "library": "aria2",
+      "version": "1.37.0",
+      "command": "/parsers/bin/2-aria2"
+    },
+    {
+      "id": "bin-wget",
+      "language": "bin",
+      "library": "wget",
+      "version": "1.24.5",
+      "command": "/parsers/bin/3-wget"
+    },
+    {
+      "id": "clojure-uri",
+      "language": "clojure",
+      "library": "lambdaisland/uri",
+      "version": "1.19.155",
+      "command": "/parsers/clojure/1-uri"
+    },
+    {
+      "id": "crystal-uri",
+      "language": "crystal",
+      "library": "uri",
+      "version": "1.15.0",
+      "command": "/parsers/crystal/1-uri"
+    }
+  ],
+  "metadata": {
+    "total_parsers": 96,
+    "total_languages": 18,
+    "languages": [
+      "dart",
+      "python",
+      "php",
+      "perl",
+      "javascript",
+      "java",
+      "kotlin",
+      "go",
+      "elixir",
+      "erlang",
+      "csharp",
+      "ruby",
+      "rust",
+      "swift",
+      "cpp",
+      "haskell",
+      "zig",
+      "r"
+    ],
+    "last_updated": "2026-04-23",
+    "version": "1.1.0"
+  }
+}

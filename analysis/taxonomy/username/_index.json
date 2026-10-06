@@ -1,0 +1,7 @@
+{
+  "username-percent-encoding": {
+    "name": "Username percent-encoding",
+    "description": "One parser preserves raw username while other applies percent-encoding or decoding",
+    "count": 50
+  }
+}

@@ -1,0 +1,45 @@
+FROM python:3.14-slim
+
+WORKDIR /parsers/python
+
+# Copying stuff over
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/python/*.py /parsers/python/
+
+# Make utils executable
+RUN apt update && apt install jq -y && \
+    chmod +x /parsers/extractor.sh && \
+    chmod +x /parsers/libs.sh
+
+# Dependencies and version pinning
+RUN for f in /parsers/python/*.py; do \
+        library=$(basename "$f" .py | cut -d'-' -f2- ); \
+        version=$(sh /parsers/extractor.sh "python-$library" version); \
+        echo "Installing $library==$version"; \
+
+        # Install dependency for this parser (if any)
+        pip3 install "$library==$version"; \
+    done
+
+# Create shell wrapper scripts without extension to run the .py files
+RUN chmod +x /parsers/python/*.py
+RUN for f in /parsers/python/*.py; do \
+        name=$(basename "$f" .py); \
+        printf '%s\n' "#!/bin/sh" "cd /app/parsers/python 2>/dev/null || cd /parsers/python" "exec python3 \"$name.py\" \"\$@\"" > /parsers/python/$name; \
+        chmod +x /parsers/python/$name; \
+    done
+
+# Save the libs to a file for the worker to read
+RUN /parsers/libs.sh python > /parsers/worker_parsers.json
+
+# Set up the worker
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["python3", "worker.py"]

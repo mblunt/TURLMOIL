@@ -1,0 +1,67 @@
+{
+  "null-vs-empty-query": {
+    "name": "Null vs Empty Query Object",
+    "description": "One parser returns null (no query) while another returns an empty object/dict {} when the URL has no query string or only a fragment delimiter.",
+    "count": 35
+  },
+  "percent-encoding-in-keys": {
+    "name": "Percent-Encoding Differences in Keys",
+    "description": "Parsers differ in whether they decode percent-encoded characters (especially control characters like %09, %0A, %0D) in query key names.",
+    "count": 28
+  },
+  "duplicate-key-array-vs-string": {
+    "name": "Duplicate Key: Array vs String",
+    "description": "When the same key appears multiple times in the query string, one parser stores values as an array while another keeps only one value as a string.",
+    "count": 50
+  },
+  "no-value-key-null-vs-empty-string": {
+    "name": "No-Value Key: null vs Empty String",
+    "description": "For keys without a value (e.g. ?key or ?key=), one parser stores the value as null while another stores it as an empty string \"\".",
+    "count": 50
+  },
+  "plus-decoded-as-space": {
+    "name": "Plus Sign Decoded as Space in Keys",
+    "description": "Some parsers decode '+' as a space character in query key names (application/x-www-form-urlencoded behavior), while others leave '+' as a literal plus sign.",
+    "count": 28
+  },
+  "dot-in-key-replaced": {
+    "name": "Dot in Key Name Replaced",
+    "description": "Some parsers (notably PHP's parse_str) replace dots and spaces in key names with underscores, while others preserve the original dot characters.",
+    "count": 35
+  },
+  "whitespace-in-key-normalized": {
+    "name": "Whitespace/Control Characters in Keys Normalized",
+    "description": "Some parsers (notably PHP's parse_str) replace whitespace and control characters (tabs, newlines, carriage returns) in key names with underscores, while others preserve the literal characters.",
+    "count": 44
+  },
+  "no-value-key-dropped": {
+    "name": "No-Value Key Dropped vs Kept",
+    "description": "When a query parameter has no `=` sign (e.g. `?foo&bar=1`), some parsers (e.g. PHP's parse_str) retain `foo` as a key with an empty string value, while others (e.g. Python's urllib3) silently drop the key entirely.",
+    "count": 50
+  },
+  "bracket-notation-key-mangled": {
+    "name": "Bracket Notation in Key Name Mangled",
+    "description": "Some parsers (notably PHP's parse_str) interpret `[` in query key names as PHP-style array bracket notation, stripping or transforming the bracket portion, while others treat `[` as a literal character and preserve it in the key name.",
+    "count": 31
+  },
+  "key-ordering": {
+    "name": "Key Ordering Difference",
+    "description": "Parsers return the same query keys and values but in a different order, reflecting differences in internal data structure ordering (insertion order vs. sorted, etc.).",
+    "count": 24
+  },
+  "empty-key-included-or-dropped": {
+    "name": "Empty Key Included or Dropped",
+    "description": "When a query string contains a delimiter that produces an empty key name (e.g. `?&foo=1`, `?foo&&bar=1`, or `?=val`), some parsers include the empty string `\"\"` as a key while others silently drop it.",
+    "count": 39
+  },
+  "semicolon-separator": {
+    "name": "Semicolon as Query Parameter Separator",
+    "description": "Some parsers (e.g. Perl's URI, older CGI libraries) treat semicolons (`;`) as alternative parameter separators equivalent to `&`, splitting the query string on `;` in addition to `&`, while others treat `;` as a literal character within a key or value.",
+    "count": 30
+  },
+  "crlf-stripped-from-keys": {
+    "name": "CRLF/Tab Stripped from Query Keys",
+    "description": "Some parsers (following the WHATWG URL standard) strip CR (`\\r`), LF (`\\n`), and TAB (`\\t`) characters from query strings before parsing, causing those characters to disappear from key names, while others preserve them as-is.",
+    "count": 34
+  }
+}

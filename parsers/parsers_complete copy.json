@@ -1,0 +1,264 @@
+{
+  "parsers": [
+    {
+      "id": "python-urllib",
+      "language": "python",
+      "library": "urllib.parse",
+      "version": "3.11",
+      "command": "/app/parsers/python/1-urllib-parse",
+      "file_path": "/app/parsers/python/1-urllib-parse.py"
+    },
+    {
+      "id": "python-yarl",
+      "language": "python",
+      "library": "yarl",
+      "version": "1.9.4",
+      "command": "/app/parsers/python/2-yarl",
+      "file_path": "/app/parsers/python/2-yarl.py"
+    },
+    {
+      "id": "python-furl",
+      "language": "python",
+      "library": "furl",
+      "version": "2.1.3",
+      "command": "/app/parsers/python/3-furl",
+      "file_path": "/app/parsers/python/3-furl.py"
+    },
+    {
+      "id": "python-httpx",
+      "language": "python",
+      "library": "httpx",
+      "version": "0.27.0",
+      "command": "/app/parsers/python/4-httpx",
+      "file_path": "/app/parsers/python/4-httpx.py"
+    },
+    {
+      "id": "javascript-whatwg",
+      "language": "javascript",
+      "library": "whatwg-url",
+      "version": "Node 20",
+      "command": "/app/parsers/javascript/1-whatwg-url",
+      "file_path": "/app/parsers/javascript/1-whatwg-url.js"
+    },
+    {
+      "id": "javascript-legacy",
+      "language": "javascript",
+      "library": "url (legacy)",
+      "version": "Node 20",
+      "command": "/app/parsers/javascript/2-legacy-url",
+      "file_path": "/app/parsers/javascript/2-legacy-url.js"
+    },
+    {
+      "id": "javascript-deno",
+      "language": "javascript",
+      "library": "deno-url",
+      "version": "Node 20",
+      "command": "/app/parsers/javascript/3-deno-url",
+      "file_path": "/app/parsers/javascript/3-deno-url.js"
+    },
+    {
+      "id": "go-net",
+      "language": "go",
+      "library": "net/url",
+      "version": "1.21",
+      "command": "/app/parsers/go/1-net-url",
+      "file_path": "/app/parsers/go/1-net-url.go"
+    },
+    {
+      "id": "rust-url",
+      "language": "rust",
+      "library": "url",
+      "version": "2.5.7",
+      "command": "/app/parsers/rust/1-url",
+      "file_path": "/app/parsers/rust/1-url.rs"
+    },
+    {
+      "id": "php-parseurl",
+      "language": "php",
+      "library": "parse_url",
+      "version": "8.2",
+      "command": "/app/parsers/php/1-parse-url",
+      "file_path": "/app/parsers/php/1-parse-url.php"
+    },
+    {
+      "id": "java-uri",
+      "language": "java",
+      "library": "java.net.URI",
+      "version": "17",
+      "command": "/app/parsers/java/3-java-net-uri",
+      "file_path": "/app/parsers/java/3-java-net-uri.java"
+    },
+    {
+      "id": "ruby-uri",
+      "language": "ruby",
+      "library": "uri",
+      "version": "3.2",
+      "command": "/app/parsers/ruby/1-uri",
+      "file_path": "/app/parsers/ruby/1-uri.rb"
+    },
+    {
+      "id": "ruby-addressable",
+      "language": "ruby",
+      "library": "addressable",
+      "version": "2.8.6",
+      "command": "/app/parsers/ruby/2-addressable",
+      "file_path": "/app/parsers/ruby/2-addressable.rb"
+    },
+    {
+      "id": "perl-uri",
+      "language": "perl",
+      "library": "URI",
+      "version": "5.21",
+      "command": "/app/parsers/perl/1-uri",
+      "file_path": "/app/parsers/perl/1-uri.pl"
+    },
+    {
+      "id": "cpp-libcurl",
+      "language": "cpp",
+      "library": "libcurl",
+      "version": "8.5.0",
+      "command": "/app/parsers/cpp/4-libcurl",
+      "file_path": "/app/parsers/cpp/4-libcurl.cpp"
+    },
+    {
+      "id": "cpp-httpparser",
+      "language": "cpp",
+      "library": "http-parser",
+      "version": "2.9.4",
+      "command": "/app/parsers/cpp/5-http-parser",
+      "file_path": "/app/parsers/cpp/5-http-parser.cpp"
+    },
+    {
+      "id": "elixir-uri",
+      "language": "elixir",
+      "library": "URI",
+      "version": "1.15",
+      "command": "/app/parsers/elixir/1-uri",
+      "file_path": "/app/parsers/elixir/1-uri.exs"
+    },
+    {
+      "id": "csharp-systemuri",
+      "language": "csharp",
+      "library": "System.Uri",
+      "version": ".NET 8.0",
+      "command": "/app/parsers/csharp/1-system-uri",
+      "file_path": "/app/parsers/csharp/1-system-uri.cs"
+    },
+    {
+      "id": "csharp-flurl",
+      "language": "csharp",
+      "library": "Flurl",
+      "version": "4.0.0",
+      "command": "/app/parsers/csharp/2-flurl",
+      "file_path": "/app/parsers/csharp/2-flurl.cs"
+    },
+    {
+      "id": "swift-url",
+      "language": "swift",
+      "library": "Foundation.URL",
+      "version": "5.9",
+      "command": "/app/parsers/swift/1-url",
+      "file_path": "/app/parsers/swift/1-url.swift"
+    },
+    {
+      "id": "swift-urlcomponents",
+      "language": "swift",
+      "library": "URLComponents",
+      "version": "5.9",
+      "command": "/app/parsers/swift/2-urlcomponents",
+      "file_path": "/app/parsers/swift/2-urlcomponents.swift"
+    },
+    {
+      "id": "java-okhttp",
+      "language": "java",
+      "library": "OkHttp (HttpUrl)",
+      "version": "4.11.0",
+      "command": "/app/parsers/java/1-okhttp",
+      "file_path": "/app/parsers/java/1-okhttp.java"
+    },
+    {
+      "id": "java-apache-httpclient",
+      "language": "java",
+      "library": "Apache HttpClient (URIBuilder)",
+      "version": "4.5.13",
+      "command": "/app/parsers/java/2-apache-httpclient",
+      "file_path": "/app/parsers/java/2-apache-httpclient.java"
+    },
+    {
+      "id": "rust-hyper-uri",
+      "language": "rust",
+      "library": "hyper::Uri",
+      "version": "0.14",
+      "command": "/app/parsers/rust/2-hyper-uri",
+      "file_path": "/app/parsers/rust/2-hyper-uri.rs"
+    },
+    {
+      "id": "rust-reqwest",
+      "language": "rust",
+      "library": "reqwest::Url",
+      "version": "0.11",
+      "command": "/app/parsers/rust/3-reqwest",
+      "file_path": "/app/parsers/rust/3-reqwest.rs"
+    },
+    {
+      "id": "php-purl",
+      "language": "php",
+      "library": "purl",
+      "version": "latest",
+      "command": "/app/parsers/php/2-purl",
+      "file_path": "/app/parsers/php/2-purl.php"
+    },
+    {
+      "id": "php-laminas",
+      "language": "php",
+      "library": "laminas/laminas-uri",
+      "version": "latest",
+      "command": "/app/parsers/php/3-laminas",
+      "file_path": "/app/parsers/php/3-laminas.php"
+    },
+    {
+      "id": "cpp-boost-url",
+      "language": "cpp",
+      "library": "Boost.URL",
+      "version": "latest",
+      "command": "/app/parsers/cpp/1-boost-url",
+      "file_path": "/app/parsers/cpp/1-boost-url.cpp"
+    },
+    {
+      "id": "cpp-ada-url",
+      "language": "cpp",
+      "library": "Ada URL",
+      "version": "latest",
+      "command": "/app/parsers/cpp/2-ada-url",
+      "file_path": "/app/parsers/cpp/2-ada-url.cpp"
+    },
+    {
+      "id": "cpp-poco-uri",
+      "language": "cpp",
+      "library": "Poco::URI",
+      "version": "latest",
+      "command": "/app/parsers/cpp/3-poco-uri",
+      "file_path": "/app/parsers/cpp/3-poco-uri.cpp"
+    }
+  ],
+  "metadata": {
+    "total_parsers": 31,
+    "total_languages": 12,
+    "languages": [
+      "python",
+      "javascript",
+      "go",
+      "rust",
+      "php",
+      "java",
+      "ruby",
+      "perl",
+      "cpp",
+      "elixir",
+      "csharp",
+      "swift"
+    ],
+    "last_updated": "2025-12-30",
+    "version": "1.0.0"
+  }
+}

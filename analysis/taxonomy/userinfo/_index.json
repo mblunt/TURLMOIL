@@ -1,0 +1,7 @@
+{
+  "userinfo-parsing-error": {
+    "name": "Userinfo parsing error",
+    "description": "One parser fails to correctly extract userinfo, returning corrupted or incomplete data",
+    "count": 25
+  }
+}

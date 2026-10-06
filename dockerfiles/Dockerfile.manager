@@ -1,0 +1,26 @@
+FROM python:3.14-slim
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl
+
+WORKDIR /app
+
+COPY distributed/requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY distributed/core/ core
+COPY distributed/registry/ registry
+COPY distributed/tasks/ tasks
+COPY distributed/manager/ .
+
+COPY parsers/parsers.json /app/parsers/parsers.json
+
+# Environment variables
+ENV REDIS_HOST=redis \
+    REDIS_PORT=6379 \
+    PYTHONUNBUFFERED=1
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "import redis; r = redis.Redis(host='${REDIS_HOST}', port=${REDIS_PORT}); r.ping()" || exit 1
+
+CMD ["tail", "-f", "/dev/null"]

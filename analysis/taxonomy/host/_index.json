@@ -1,0 +1,87 @@
+{
+  "case-folding": {
+    "name": "Case Folding",
+    "description": "One parser lowercases the host (WHATWG-style normalization) while the other preserves the original case.",
+    "count": 50
+  },
+  "ip-normalization": {
+    "name": "IP Normalization",
+    "description": "One parser expands hex/octal/dotless IP addresses to standard dotted-decimal notation while the other leaves them as-is.",
+    "count": 50
+  },
+  "punycode": {
+    "name": "Punycode / IDN Encoding",
+    "description": "One parser converts internationalized domain names to ACE/punycode (xn--) form while the other returns the Unicode or percent-encoded form.",
+    "count": 50
+  },
+  "port-in-host": {
+    "name": "Port Leaked into Host",
+    "description": "One parser includes the port number in the host field (e.g. host:port) while the other correctly separates them.",
+    "count": 50
+  },
+  "percent-encoding": {
+    "name": "Percent-Encoding Differences",
+    "description": "One parser percent-encodes characters in the host while the other leaves them decoded, or vice versa.",
+    "count": 50
+  },
+  "path-affects-host": {
+    "name": "Path / Special Chars Affect Host Extraction",
+    "description": "Special characters (tabs, spaces, commas, etc.) cause one parser to truncate the host at a different point than the other.",
+    "count": 24
+  },
+  "ipv6-brackets": {
+    "name": "IPv6 Bracket Handling",
+    "description": "Parsers disagree on whether to include or strip the square brackets surrounding an IPv6 address in the host field, or disagree on the leading-zero representation of groups.",
+    "count": 50
+  },
+  "fullwidth-chars": {
+    "name": "Fullwidth / Unicode Separator Normalization",
+    "description": "One parser normalizes fullwidth periods (\uff0eU+FF0E) or other Unicode dot-like separators to ASCII equivalents while the other treats them as literal characters in the host.",
+    "count": 50
+  },
+  "userinfo-in-host": {
+    "name": "Userinfo Leaked into Host",
+    "description": "One parser fails to strip the userinfo (user:password@) portion of the URL, causing it to bleed into the extracted host field.",
+    "count": 33
+  },
+  "ipv6-case": {
+    "name": "IPv6 Address Case Normalization",
+    "description": "Parsers disagree on the case of hexadecimal digits in IPv6 addresses \u2014 one normalizes to lowercase (or uppercase) while the other preserves the original case or uses a different convention.",
+    "count": 50
+  },
+  "whitespace-in-authority": {
+    "name": "Whitespace / Newline in Authority Section",
+    "description": "A URL containing whitespace (space, tab, newline, etc.) in the authority section causes parsers to disagree on where the userinfo ends and the host begins, or where the host ends entirely.",
+    "count": 50
+  },
+  "ipv6-leading-zeros": {
+    "name": "IPv6 Leading Zero Normalization",
+    "description": "Parsers disagree on whether to strip leading zeros from individual IPv6 address groups (e.g., 07 vs 7), where one normalizes groups to their minimal representation and the other preserves the original encoding.",
+    "count": 50
+  },
+  "unicode-normalization": {
+    "name": "Unicode Normalization (NFKC/NFC)",
+    "description": "One parser applies Unicode normalization (NFKC/NFC) to the host, converting compatibility characters like superscript digits (\u2074\u21924), micro sign (\u00b5\u2192\u03bc), or modifier letters (\u1d5b\u2192v) to their canonical equivalents, while the other preserves the original code points.",
+    "count": 32
+  },
+  "charset-confusion": {
+    "name": "Charset / Encoding Confusion (Latin-1 vs UTF-8)",
+    "description": "One parser misinterprets the URL's character encoding (e.g., reads UTF-8 bytes as Latin-1), producing mojibake in the host field, while the other correctly handles Unicode code points.",
+    "count": 16
+  },
+  "scheme-as-host": {
+    "name": "Scheme Parsed as Host",
+    "description": "A URL with a double-scheme pattern (e.g. http://https://...) causes one parser to extract the inner scheme (with or without its colon) as the host value, while another parser resolves the authority differently.",
+    "count": 50
+  },
+  "ipv6-compression": {
+    "name": "IPv6 Zero-Group Compression",
+    "description": "Parsers disagree on whether to compress consecutive all-zero groups in an IPv6 address using the :: notation \u2014 one outputs the compressed form while the other expands zeros explicitly.",
+    "count": 14
+  },
+  "leading-zeros-ip": {
+    "name": "Leading Zeros in IPv4 Octets",
+    "description": "Parsers disagree on whether to strip leading zeros from IPv4 address octets (e.g., 01.0.39.6 vs 1.0.39.6), where one normalizes octets to their minimal decimal representation and the other preserves the original encoding.",
+    "count": 15
+  }
+}

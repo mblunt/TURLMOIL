@@ -1,0 +1,12 @@
+{
+  "password-parsing-error": {
+    "name": "Password parsing error",
+    "description": "One parser fails to correctly extract password, returning corrupted or malformed data",
+    "count": 4
+  },
+  "password-percent-encoding": {
+    "name": "Password percent-encoding",
+    "description": "One parser preserves or normalizes password while other applies variable percent-encoding",
+    "count": 23
+  }
+}

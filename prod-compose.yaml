@@ -1,0 +1,1392 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+ name: url-parser-fuzzing
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ada-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ada-worker
+  template:
+    metadata:
+      labels:
+        app: ada-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: ada-worker
+          image: registry.example.com/url-parser-ada:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "ada"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"   
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bin-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bin-worker
+  template:
+    metadata:
+      labels:
+        app: bin-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: bin-worker
+          image: registry.example.com/url-parser-bin:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "bin"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: clojure-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: clojure-worker
+  template:
+    metadata:
+      labels:
+        app: clojure-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: clojure-worker
+          image: registry.example.com/url-parser-clojure:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "clojure"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cpp-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cpp-worker
+  template:
+    metadata:
+      labels:
+        app: cpp-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: cpp-worker
+          image: registry.example.com/url-parser-cpp:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "cpp"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi"
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: crystal-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: crystal-worker
+  template:
+    metadata:
+      labels:
+        app: crystal-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: crystal-worker
+          image: registry.example.com/url-parser-crystal:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "crystal"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: csharp-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: csharp-worker
+  template:
+    metadata:
+      labels:
+        app: csharp-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: csharp-worker
+          image: registry.example.com/url-parser-csharp:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "csharp"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dart-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dart-worker
+  template:
+    metadata:
+      labels:
+        app: dart-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: dart-worker
+          image: registry.example.com/url-parser-dart:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "dart"
+            - name: CELERY_CONCURRENCY
+              value: "5"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "3Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elixir-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: elixir-worker
+  template:
+    metadata:
+      labels:
+        app: elixir-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: elixir-worker
+          image: registry.example.com/url-parser-elixir:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "elixir"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: erlang-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erlang-worker
+  template:
+    metadata:
+      labels:
+        app: erlang-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: erlang-worker
+          image: registry.example.com/url-parser-erlang:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "erlang"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: go-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: go-worker
+  template:
+    metadata:
+      labels:
+        app: go-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: go-worker
+          image: registry.example.com/url-parser-go:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "go"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: haskell-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: haskell-worker
+  template:
+    metadata:
+      labels:
+        app: haskell-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: haskell-worker
+          image: registry.example.com/url-parser-haskell:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "haskell"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: java-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: java-worker
+  template:
+    metadata:
+      labels:
+        app: java-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: java-worker
+          image: registry.example.com/url-parser-java:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "java"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: javascript-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 22
+  selector:
+    matchLabels:
+      app: javascript-worker
+  template:
+    metadata:
+      labels:
+        app: javascript-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: javascript-worker
+          image: registry.example.com/url-parser-javascript:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "javascript"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: kotlin-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: kotlin-worker
+  template:
+    metadata:
+      labels:
+        app: kotlin-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: kotlin-worker
+          image: registry.example.com/url-parser-kotlin:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "kotlin"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: perl-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: perl-worker
+  template:
+    metadata:
+      labels:
+        app: perl-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: perl-worker
+          image: registry.example.com/url-parser-perl:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "perl"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: php-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 11
+  selector:
+    matchLabels:
+      app: php-worker
+  template:
+    metadata:
+      labels:
+        app: php-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: php-worker
+          image: registry.example.com/url-parser-php:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "php"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: python-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 30
+  selector:
+    matchLabels:
+      app: python-worker
+  template:
+    metadata:
+      labels:
+        app: python-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: python-worker
+          image: registry.example.com/url-parser-python:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "python"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: r-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 20
+  selector:
+    matchLabels:
+      app: r-worker
+  template:
+    metadata:
+      labels:
+        app: r-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: r-worker
+          image: registry.example.com/url-parser-r:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "r"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ruby-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: ruby-worker
+  template:
+    metadata:
+      labels:
+        app: ruby-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: ruby-worker
+          image: registry.example.com/url-parser-ruby:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "ruby"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: rust-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: rust-worker
+  template:
+    metadata:
+      labels:
+        app: rust-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: rust-worker
+          image: registry.example.com/url-parser-rust:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "rust"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: swift-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swift-worker
+  template:
+    metadata:
+      labels:
+        app: swift-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: swift-worker
+          image: registry.example.com/url-parser-swift:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "swift"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Worker Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: zig-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: zig-worker
+  template:
+    metadata:
+      labels:
+        app: zig-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: zig-worker
+          image: registry.example.com/url-parser-zig:latest
+          imagePullPolicy: Always
+          env:
+            - name: WORKER_LANGUAGE
+              value: "zig"
+            - name: CELERY_CONCURRENCY
+              value: "10"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "1"
+              memory: "2Gi" 
+---
+# Manager Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: manager
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: manager
+  template:
+    metadata:
+      labels:
+        app: manager
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: manager
+          image: registry.example.com/url-parser-manager:latest
+          imagePullPolicy: Always
+          env:
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          ports: # For exposing Flower UI
+            - containerPort: 5555
+              protocol: TCP
+          stdin: true
+          tty: true
+      restartPolicy: Always
+---
+# Service for Manager/Flower
+apiVersion: v1
+kind: Service
+metadata:
+  name: manager
+  namespace: url-parser-fuzzing
+spec:
+  ports:
+    - name: "5555"
+      port: 5555
+      targetPort: 5555
+  selector:
+    app: manager
+---
+# Analysis Worker — dedicated to differential/scoring tasks
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: analysis-worker
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: analysis-worker
+  template:
+    metadata:
+      labels:
+        app: analysis-worker
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: analysis-worker
+          image: registry.example.com/url-parser-analysis:latest
+          imagePullPolicy: Always
+          env:
+            - name: CELERY_CONCURRENCY
+              value: "4"
+            - name: DB_DRIVER
+              value: postgresql
+            - name: DB_HOST
+              value: postgres
+            - name: DB_NAME
+              value: url_parser
+            - name: DB_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_USER
+              value: parser
+            - name: REDIS_HOST
+              value: redis
+            - name: REDIS_PORT
+              value: "6379"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              cpu: "2"
+              memory: "2Gi"
+---
+# Postgres Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      securityContext:
+        fsGroup: 999
+      containers:
+        - name: parser-postgres
+          image: postgres:16-alpine
+          imagePullPolicy: Always
+          args:
+            - "-c"
+            - "max_connections=2000"
+            - "-c"
+            - "shared_buffers=1GB"
+            - "-c"
+            - "work_mem=2MB"
+            - "-c"
+            - "maintenance_work_mem=256MB"
+            - "-c"
+            - "effective_cache_size=4GB"
+            - "-c"
+            - "synchronous_commit=off"
+            - "-c"
+            - "wal_buffers=64MB"
+            - "-c"
+            - "checkpoint_completion_target=0.9"
+            - "-c"
+            - "random_page_cost=1.1"
+            - "-c"
+            - "effective_io_concurrency=200"
+            - "-c"
+            - "commit_delay=10000"
+            - "-c"
+            - "commit_siblings=10"
+          env:
+            - name: POSTGRES_DB
+              value: url_parser
+            - name: POSTGRES_PASSWORD
+              value: PLACEHOLDER_CHANGE_BEFORE_REPRO
+            - name: POSTGRES_USER
+              value: parser
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          livenessProbe:
+            exec:
+              command:
+                - "pg_isready"
+                - "-U"
+                - "parser"
+                - "-d"
+                - "url_parser"
+            failureThreshold: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: "8"
+              memory: "32Gi"
+            limits:
+              cpu: "8"
+              memory: "32Gi"
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: postgres-data
+---
+# Postgres Persistent Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-data
+  namespace: url-parser-fuzzing
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Ti
+
+---
+# Postgres Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: url-parser-fuzzing
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+
+---
+# Redis Deployment
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+  namespace: url-parser-fuzzing
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: parser-redis
+          image: redis:7-alpine
+          args:
+            - redis-server
+            - --appendonly
+            - "no"
+            - --save
+            - ""
+            - --stop-writes-on-bgsave-error
+            - "no"
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            failureThreshold: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data
+---
+# Redis Persistent Volume Claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: redis-data
+  name: redis-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: url-parser-fuzzing
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379

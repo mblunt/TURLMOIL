@@ -1,0 +1,56 @@
+FROM erlang:27-alpine
+
+RUN apk add --no-cache jq python3 py3-pip git ca-certificates && update-ca-certificates
+
+RUN apk add --no-cache rebar3 || (apk add --no-cache curl && \
+    curl -fL -o /usr/local/bin/rebar3 https://s3.amazonaws.com/rebar3/rebar3 && \
+    chmod +x /usr/local/bin/rebar3)
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+RUN chmod +x /parsers/extractor.sh /parsers/libs.sh
+
+# Build hackney and ibrowse (needed by parsers 2 and 3)
+RUN HACKNEY_VERSION=$(sh /parsers/extractor.sh "erlang-hackney-url" version) && \
+    git clone --depth 1 --branch "${HACKNEY_VERSION}" https://github.com/benoitc/hackney.git /opt/hackney && \
+    cd /opt/hackney && rebar3 compile
+
+RUN IBROWSE_VERSION=$(sh /parsers/extractor.sh "erlang-ibrowse-lib" version) && \
+    git clone --depth 1 --branch "v${IBROWSE_VERSION}" https://github.com/cmullaparthi/ibrowse.git /opt/ibrowse && \
+    cd /opt/ibrowse && rebar3 compile
+
+COPY parsers/erlang/*.erl /parsers/erlang/
+COPY parsers/erlang/client.py /parsers/erlang/
+COPY parsers/erlang/entrypoint.sh /parsers/erlang/
+RUN chmod +x /parsers/erlang/entrypoint.sh
+
+# Generate client.py wrapper for each registered parser
+RUN for f in /parsers/erlang/*.erl; do \
+        name=$(basename "$f" .erl); \
+        num=$(echo "$name" | grep -o '^[0-9]*'); \
+        [ -z "$num" ] && continue; \
+        stem=$(basename "$f" .erl | cut -d'-' -f2-); \
+        library=$(sh /parsers/extractor.sh "erlang-$stem" library 2>/dev/null || true); \
+        if [ -z "$library" ] || [ "$library" = "null" ]; then \
+            echo "Skipping unregistered: erlang-$stem"; \
+            continue; \
+        fi; \
+        port=$((6000 + num)); \
+        printf '%s\n' "#!/bin/sh" \
+            "exec python3 /parsers/erlang/client.py ${port} \"\$1\"" \
+            > /parsers/erlang/$name; \
+        chmod +x /parsers/erlang/$name; \
+        echo "Wrapper: $name -> port $port"; \
+    done
+
+RUN /parsers/libs.sh erlang > /parsers/worker_parsers.json
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["/parsers/erlang/entrypoint.sh"]

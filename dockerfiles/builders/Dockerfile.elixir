@@ -1,0 +1,53 @@
+FROM elixir:1.19.5-alpine
+
+COPY parsers/parsers.json /parsers/
+COPY parsers/utils/* /parsers/
+COPY parsers/elixir/*.ex /parsers/elixir/
+COPY parsers/elixir/client.py /parsers/elixir/
+COPY parsers/elixir/entrypoint.sh /parsers/elixir/
+
+RUN apk add --no-cache jq python3 py3-pip && \
+    chmod +x /parsers/extractor.sh /parsers/libs.sh /parsers/elixir/entrypoint.sh
+
+ENV MIX_ENV=prod
+
+RUN mix local.hex --force && mix local.rebar --force
+
+# Build one escript per parser and generate a shell wrapper that calls the TCP client.
+# Ports: numeric prefix of the filename + 4000 (1-uri -> 4001, 2-ex_url -> 4002, …)
+RUN for f in /parsers/elixir/*.ex; do \
+      name=$(basename "$f" .ex); \
+      lib=$(echo "$name" | cut -d'-' -f2-); \
+      id="elixir-$lib"; \
+      version=$(sh /parsers/extractor.sh "$id" version); \
+      num=$(echo "$name" | grep -o '^[0-9]*'); \
+      port=$((4000 + num)); \
+      proj="/parsers/elixir/projects/$name"; \
+      mkdir -p "$proj/lib"; \
+      cp "$f" "$proj/lib/parser.ex"; \
+      \
+      extra_dep=""; \
+      if [ -n "$version" ] && [ "$version" != "null" ] && echo "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]'; then \
+        extra_dep="      {:${lib}, \"~> ${version}\"},"; \
+      fi; \
+      \
+      printf 'defmodule Parser.MixProject do\n  use Mix.Project\n  def project, do: [app: :parser, version: "0.1.0", elixir: ">= 1.10.0", escript: [main_module: URLParser], deps: deps()]\n  def application, do: [extra_applications: [:logger]]\n  defp deps do\n    [\n      {:jason, "~> 1.4"},\n%s\n    ]\n  end\nend\n' "$extra_dep" > "$proj/mix.exs"; \
+      \
+      cd "$proj" && mix deps.get && mix escript.build && \
+      cp "$proj/parser" "/parsers/elixir/$name.escript" && \
+      chmod +x "/parsers/elixir/$name.escript" && \
+      printf '#!/bin/sh\npython3 /parsers/elixir/client.py %d "$1"\n' "$port" > "/parsers/elixir/$name" && \
+      chmod +x "/parsers/elixir/$name"; \
+    done
+
+RUN /parsers/libs.sh elixir > /parsers/worker_parsers.json
+
+WORKDIR /app
+COPY distributed/requirements.txt /app/
+RUN pip3 install -r requirements.txt --break-system-packages
+COPY distributed/core/ /app/core/
+COPY distributed/registry/ /app/registry/
+COPY distributed/tasks/ /app/tasks/
+COPY distributed/worker.py /app/
+
+CMD ["/parsers/elixir/entrypoint.sh"]

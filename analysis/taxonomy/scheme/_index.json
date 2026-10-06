@@ -1,0 +1,17 @@
+{
+  "special-scheme-parsing": {
+    "name": "Special scheme parsing differences",
+    "description": "One parser recognizes and preserves special schemes (e.g., wss, ldaps) while the other treats them as non-special or substitutes alternative schemes",
+    "count": 30
+  },
+  "scheme-colon-handling": {
+    "name": "Scheme colon handling",
+    "description": "One parser includes the trailing colon in scheme, the other excludes it",
+    "count": 23
+  },
+  "scheme-case-normalization": {
+    "name": "Scheme case normalization",
+    "description": "One parser lowercases the scheme while the other preserves its case",
+    "count": 15
+  }
+}

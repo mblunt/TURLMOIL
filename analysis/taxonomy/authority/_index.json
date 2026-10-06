@@ -1,0 +1,52 @@
+{
+  "percent-encoding-normalization": {
+    "name": "Percent-encoding case or normalization",
+    "description": "Differences in how userinfo is percent-encoded or normalized in authority",
+    "count": 12
+  },
+  "host-parsing-differences": {
+    "name": "Host parsing differences",
+    "description": "Divergent parsing of IP addresses, domains, or internationalized domains in authority",
+    "count": 4
+  },
+  "userinfo-port-extraction": {
+    "name": "Userinfo or port extraction differences",
+    "description": "One parser includes userinfo or port in authority, while other extracts only host, or one fails to parse.",
+    "count": 6
+  },
+  "scheme-vs-authority": {
+    "name": "Scheme parsed as authority",
+    "description": "One parser returns scheme value in authority field; other correctly parses authority.",
+    "count": 2
+  },
+  "authority-host-userinfo-confusion": {
+    "name": "Authority Host Userinfo Confusion",
+    "description": "Userinfo parsed as part of authority differently\u2014@ ambiguity or userinfo/host boundary",
+    "count": 5
+  },
+  "control-char-stripping": {
+    "name": "Control character stripping in authority",
+    "description": "One parser strips control characters from authority; the other preserves them percent-encoded.",
+    "count": 50
+  },
+  "host-case-normalization": {
+    "name": "Host case normalization",
+    "description": "One parser lowercases the host; the other preserves original case or normalizes differently.",
+    "count": 14
+  },
+  "scheme-in-authority": {
+    "name": "Scheme appended to or mixed in authority",
+    "description": "One parser appends the scheme to authority field or one parser returns authority-only while other includes scheme prefix.",
+    "count": 24
+  },
+  "punycode-encoding-differences": {
+    "name": "Punycode encoding differences",
+    "description": "One parser applies punycode (xn--) encoding to internationalized domain names; the other preserves raw unicode.",
+    "count": 8
+  },
+  "port-stripping-from-authority": {
+    "name": "Port stripping from authority",
+    "description": "One parser strips port from authority field; the other includes it, or one normalizes port representation (leading zeros, removal of default ports).",
+    "count": 2
+  }
+}

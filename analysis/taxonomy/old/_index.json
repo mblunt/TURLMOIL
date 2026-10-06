@@ -1,0 +1,92 @@
+{
+  "empty-vs-null": {
+    "name": "Empty vs Non-empty Host",
+    "description": "One parser rejects the URL and returns empty/null host while the other extracts a host value",
+    "count": 50
+  },
+  "ipv6-case": {
+    "name": "IPv6 Case Normalization",
+    "description": "IPv6 hex digits are returned in different cases (upper vs lower) by different parsers",
+    "count": 50
+  },
+  "fullwidth-chars": {
+    "name": "Fullwidth Character Normalization",
+    "description": "Fullwidth Unicode characters (e.g. fullwidth period \uff0eU+FF0E) are normalized to ASCII equivalents by some parsers but not others",
+    "count": 50
+  },
+  "ip-normalization": {
+    "name": "IP Address Normalization",
+    "description": "Hex, octal, dotless, or otherwise non-standard IP representations are expanded to standard dotted-decimal by some parsers but not others",
+    "count": 50
+  },
+  "leading-zeros-ip": {
+    "name": "Leading Zeros in IP Octets",
+    "description": "Leading zeros in IPv4 octets are treated as octal by some parsers and rejected or normalized differently by others",
+    "count": 50
+  },
+  "percent-encoding": {
+    "name": "Percent-Encoding in Host",
+    "description": "Host is returned with percent-encoded sequences by one parser but decoded (or re-encoded) by another",
+    "count": 50
+  },
+  "scheme-as-host": {
+    "name": "Scheme Parsed as Host",
+    "description": "Double-scheme URLs (e.g. http://https://...) cause one parser to return the inner scheme as the host value",
+    "count": 50
+  },
+  "case-folding": {
+    "name": "Host Case Folding",
+    "description": "Host is lowercased by one parser but returned in original mixed/upper case by another",
+    "count": 50
+  },
+  "punycode": {
+    "name": "Punycode / IDN Encoding",
+    "description": "Internationalized domain names are encoded to punycode (xn--) by one parser but left as Unicode by another",
+    "count": 50
+  },
+  "trailing-dot": {
+    "name": "Trailing Dot in Host",
+    "description": "A trailing dot on the hostname is retained by one parser but stripped by another",
+    "count": 44
+  },
+  "port-in-host": {
+    "name": "Port Number in Host Field",
+    "description": "The port number is included in the host field by one parser instead of being separated into a dedicated port field.",
+    "count": 50
+  },
+  "userinfo-in-host": {
+    "name": "Userinfo Bleeding into Host",
+    "description": "The userinfo (username/password) portion bleeds into the host field because the @ sign is not parsed as a userinfo/host delimiter.",
+    "count": 50
+  },
+  "ipv6-brackets": {
+    "name": "IPv6 Bracket Handling",
+    "description": "IPv6 addresses are returned with surrounding brackets by one parser but without brackets (or with partial brackets) by another.",
+    "count": 50
+  },
+  "path-affects-host": {
+    "name": "Path Segments Affecting Host Extraction",
+    "description": "Dot-segments (/../, /./), single-slash URLs, or other path-like constructs in the authority cause different parsers to extract different host values or fail to parse the host entirely.",
+    "count": 50
+  },
+  "unicode-normalization": {
+    "name": "Unicode Normalization (NFC/NFD/NFKC)",
+    "description": "Unicode normalization forms (NFC, NFD, NFKC, NFKD) are applied differently: one parser decomposes or composes Unicode characters (e.g. precomposed vs decomposed Greek letters, circled numbers decoded to ASCII digits) while another returns the raw code points.",
+    "count": 7
+  },
+  "ipv6-compression": {
+    "name": "IPv6 Zero-Group Compression",
+    "description": "One parser elides consecutive all-zero groups in an IPv6 address using '::' (zero compression / RFC 5952), while another retains the explicit zeros, resulting in different host strings for the same address.",
+    "count": 1
+  },
+  "whitespace-control": {
+    "name": "Whitespace and Control Characters in Host",
+    "description": "Whitespace or control characters (tabs, newlines, null bytes) embedded in the host are stripped, replaced, or cause the parser to terminate host extraction at different positions, yielding different host values.",
+    "count": 32
+  },
+  "backslash-normalization": {
+    "name": "Backslash Normalization",
+    "description": "WHATWG-compliant parsers treat \\ as / in authority; non-compliant parsers leave it literal, extracting a different or empty host.",
+    "count": 0
+  }
+}
